@@ -1,0 +1,53 @@
+@model Employee_Relation.Models.Usertbl
+
+@{
+    ViewData["Title"] = "Login";
+    string PrevPage=Convert.ToString(ViewData["PrevPage"]);  
+}
+<p class="display-6 fw-light text-info">Login</p>  
+<hr />
+@if(PrevPage=="Register")  
+{
+    <div id="AlertBox" class="alert alert-success alert-dismissible">      
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>   
+         <strong>Hooray!</strong> You Registered Successfully.  
+    </div>
+}
+@if(ViewData["Message"]!="")
+{
+    <div class="alert alert-danger alert-dismissible">
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>  
+         <strong>Oops!</strong> @ViewData["Message"]
+    </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" id="userId" class="form-control" required/>
+                <span asp-validation-for="UserId" class="text-danger"></span>     
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" id="password" class="form-control" type="password" required/>  
+                <span asp-validation-for="Password" class="text-danger"></span>  
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Login" class="btn btn-primary" />  
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}  
+}
+<script>
+    setTimeout(()=>{
+           document.getElementById('AlertBox').style.display="none";  
+      },4000);
+</script>
+

@@ -1,0 +1,75 @@
+@model Employee_Relation.Models.Emp
+@{
+    ViewData["Title"] = "Create";
+    var Team=ViewData["Team"];
+}
+
+<p class="display-6 text-info">Create</p>  
+<hr />
+<h4 class="fw-light text-warning">Are you sure you want to Add New Employee?   <a asp-action="ShowEmployee"><button class="btn btn-outline-primary ">Go Back</button></a></h4> 
+@if(ViewData["Message"]!="")
+{
+   <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>  
+    <strong>Oops!</strong> @ViewData["Message"]
+  </div>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>  
+            <div class="form-group mb-2">
+                <label asp-for="Eid" class="control-label"></label>
+                <input asp-for="Eid" class="form-control" required/>
+                <span asp-validation-for="Eid" class="text-danger"></span>  
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Ename" class="control-label"></label>
+                <input asp-for="Ename" class="form-control" required/>  
+                <span asp-validation-for="Ename" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" required/>  
+                <span asp-validation-for="Salary" class="text-danger"></span>  
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Doj" class="control-label"></label>
+                <input asp-for="Doj" class="form-control" required/>  
+                <span asp-validation-for="Doj" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">     
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" required />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Hobbies" class="control-label"></label>
+                <input asp-for="Hobbies" class="form-control"  required />  
+                <span asp-validation-for="Hobbies" class="text-danger"></span>  
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Awards" class="control-label"></label>  
+                <input asp-for="Awards" class="form-control"  />   
+                <span asp-validation-for="Awards" class="text-danger"></span>  
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="TeamName" class="control-label"></label>         
+                <select class="form-select" asp-for="TeamName" required>  
+                    @foreach(var team in ViewData["Team"] as IList<Team>)
+                        {
+                            <option>@team.TeamName</option>
+                        }
+                </select>
+                <span asp-validation-for="TeamName" class="text-danger"></span>  
+            </div>
+            <div class="form-group mb-2">
+                <input type="submit" value="Create" class="btn btn-primary" />  
+            </div>
+        </form>
+    </div>   
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}  
+}

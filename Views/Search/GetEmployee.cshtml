@@ -1,0 +1,37 @@
+@model  IEnumerable<Employee_Relation.Models.Emp>;
+@if(Model.Count()==0)
+{
+   <div class="text-center mt-4">
+        <h1 class="display-4 text-info">No Match Found !!</h1>  
+        <a asp-action="ShowEmployee" asp-controller="Employee" mg-auto><Button class="btn btn-primary mt-4">Go Back</Button></a>  
+   </div>
+}
+else
+{
+<table class="table">
+       <tr>
+        <th class="fs-4 fw-light text-dark">Id</th>  
+        <th class="fs-4 fw-light text-dark">Name</th>     
+        <th class="fs-4 fw-light text-dark">Salary</th>    
+        <th class="fs-4 fw-light text-dark">Role</th>
+        <th class="fs-4 fw-light text-dark">Details</th>  
+        <th class="fs-4 fw-light text-dark">Edit</th>
+        <th class="fs-4 fw-light text-dark">Delete</th>
+       </tr>
+       @foreach(var emp in Model)
+       {
+                <tr>
+                   <td>@emp.Eid</td>
+                   <td>@emp.Ename</td>   
+                   <td>@emp.Salary</td>  
+                   <td>@emp.TeamName</td>  
+                   <td><a asp-action="Details" asp-route-id=@emp.Eid asp-controller="Search"><button class="btn btn-info">Details</button></a></td>    
+                   <td><a asp-action="Edit" asp-route-id=@emp.Eid asp-controller="Search"><button class="btn btn-warning">Edit</button></a></td>     
+                   <td><a asp-action="Delete" asp-route-id=@emp.Eid asp-controller="Search"><button class="btn btn-danger">Delete</button></a></td>  
+                </tr>  
+       }
+</table>
+      <div class="text-center">
+       <a asp-action="ShowEmployee" asp-controller="Employee" mg-auto><Button class="btn btn-primary">Go Back</Button></a>  
+      </div>
+}

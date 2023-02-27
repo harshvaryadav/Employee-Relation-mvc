@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav w-50">
+    @{ 
+        ViewBag.Data = @HttpContextAccessor.HttpContext.Session.GetString("Username");  
+    }
+    @if (ViewBag.Data!=null)
+    {
+ <li class="nav-item">
+            <p id="manage" class="text-dark me-4" asp-controller="Home" asp-action="Privacy" title="Manage">Hello @ViewBag.Data!</p>  
+        </li>
+        <li class="nav-item">    
+            @*<form id="logoutForm" class="form-inline" asp-controller="Login"  asp-action="Logout" asp-route-returnUrl="@Url.Action("Login", "Login", new { area = "" })">*@
+            <form>
+                <button id="logout" type="submit" class="btn btn-danger me-4" asp-controller="Login" asp-action="Logout">Logout</button>
+            </form>   
+            @*</form>*@  
+        </li>
+    }
+else
+{
+  <li class="nav-item">
+            <a class="nav-link text-dark me-2" id="register" asp-controller="Login" asp-action="Register">Register</a>   
+            @*@Html.ActionLink("Register","Create","Users")*@
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark me-4" id="login" asp-controller="Login" asp-action="login">Login</a>  
+        </li>
+}

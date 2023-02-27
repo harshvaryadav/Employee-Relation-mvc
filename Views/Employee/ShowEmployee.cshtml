@@ -1,0 +1,60 @@
+@model  IEnumerable<Employee_Relation.Models.Emp>;
+@{
+        string PrevPage=Convert.ToString(ViewData["PrevPage"]);
+}
+<a asp-action="Create"><button class="btn btn-primary mb-4">Add New Employee</button></a>   
+<div class="form-group float-end">  
+            <form asp-action="GetEmployee" asp-controller="Search">  
+                  <input type="text" class="search_inp ps-2" name="keyword" id="keyword" placeholder="Search Employee">  
+                  <input type="submit" value="Search" class="btn btn-primary mb-2">   
+            </form>
+</div>
+@if(PrevPage=="Create")
+{
+    <div id="AlertBox" class="alert alert-success alert-dismissible">      
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>  
+         <strong>Hooray!</strong> New Employee Is Added Successfully.         
+    </div>
+}
+@if(PrevPage=="Delete")
+{
+    <div id="AlertBox" class="alert alert-success alert-dismissible">      
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>  
+         <strong>Hooray!</strong> Data Is Deleted Successfully.           
+    </div>
+}
+@if(PrevPage=="Update")
+{
+    <div id="AlertBox" class="alert alert-success alert-dismissible">      
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>  
+         <strong>Hooray!</strong> Data Is Updated Successfully.
+    </div>
+}
+<table class="table">
+       <tr>
+        <th class="fs-4 fw-light text-dark">Id</th>  
+        <th class="fs-4 fw-light text-dark">Name</th>     
+        <th class="fs-4 fw-light text-dark">Salary</th>   
+        <th class="fs-4 fw-light text-dark">Role</th>
+        <th class="fs-4 fw-light text-dark">Details</th>  
+        <th class="fs-4 fw-light text-dark">Edit</th>
+        <th class="fs-4 fw-light text-dark">Delete</th>
+       </tr>
+       @foreach(var emp in Model)
+       {
+                <tr>
+                   <td>@emp.Eid</td>
+                   <td>@emp.Ename</td>   
+                   <td>@emp.Salary</td>  
+                   <td>@emp.TeamName</td>  
+                   <td><a asp-action="Details" asp-route-id=@emp.Eid><button class="btn btn-info">Details</button></a></td>  
+                   <td><a asp-action="Edit" asp-route-id=@emp.Eid><button class="btn btn-warning">Edit</button></a></td>     
+                   <td><a asp-action="Delete" asp-route-id=@emp.Eid><button class="btn btn-danger">Delete</button></a></td>  
+                </tr>  
+       }
+</table>
+<script>
+    setTimeout(()=>{
+           document.getElementById('AlertBox').style.display="none";  
+      },4000);
+</script>
